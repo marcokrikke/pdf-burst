@@ -4,7 +4,9 @@ rvm:
 sudo: false
 cache:
   bundler: true
-script: 'bundle exec rake build'
+script:
+  - bundle exec rake spec
+  - bundle exec rake build
 branches:
   only:
     - master
