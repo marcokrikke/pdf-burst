@@ -78,7 +78,7 @@ describe PDF::Burst do
 
   it "runs the ghostscript burst command for each page" do
     burst = PDF::Burst.new("file.pdf")
-    burst.stub!(:page_count).and_return(5)
+    burst.stub(:page_count) { 5 }
     burst.should_receive(:system).exactly(5).times
     burst.should_receive(:burst_command).exactly(5).times
     burst.run!
@@ -86,7 +86,7 @@ describe PDF::Burst do
   
   it "runs the thumbnail generation command for each page when the thumbnail option is passed" do
     burst = PDF::Burst.new("file.pdf", :thumbnail => "128x128")
-    burst.stub!(:page_count).and_return(5)
+    burst.stub(:page_count) { 5 }
     burst.should_receive(:system).exactly(10).times
     burst.should_receive(:thumbnail_command).exactly(5).times
     burst.run!
