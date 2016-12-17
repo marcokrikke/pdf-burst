@@ -6,13 +6,13 @@ describe PDF::Burst do
 
     it "generates the command" do
       burst = PDF::Burst.new("my.pdf")
-      burst.send(:page_count_command).should == "pdfinfo 'my.pdf' | grep 'Pages:' | grep -oP '\\d+'"
+      expect(burst.send(:page_count_command)).to eq("pdfinfo 'my.pdf' | grep 'Pages:' | grep -oP '\\d+'")
     end
     
     it "is the correct number" do
       burst = PDF::Burst.new("my.pdf")
-      burst.should_receive(:page_count_command).and_return("echo '128'")
-      burst.page_count.should == 128
+      expect(burst).to receive(:page_count_command) {"echo '128'"}
+      expect(burst.page_count).to eq(128)
     end
 
   end
@@ -21,12 +21,12 @@ describe PDF::Burst do
     
     it "has a default" do
       burst = PDF::Burst.new("my.pdf")
-      burst.send(:page_filename, 11).should == "page_11.pdf"
+      expect(burst.send(:page_filename, 11)).to eq("page_11.pdf")
     end
 
     it "is customizable" do
       burst = PDF::Burst.new("my.pdf", :filename => "my_pages.%04d")
-      burst.send(:page_filename, 13).should == "my_pages.0013.pdf"
+      expect(burst.send(:page_filename, 13)).to eq("my_pages.0013.pdf")
     end
 
   end
@@ -35,21 +35,21 @@ describe PDF::Burst do
 
     it "has a default path" do
       burst = PDF::Burst.new("my.pdf")
-      burst.send(:output_file_path, 2).should == "#{FileUtils.pwd}/page_2.pdf"
+      expect(burst.send(:output_file_path, 2)).to eq("#{FileUtils.pwd}/page_2.pdf")
     end
 
     it "is customizable" do
       burst = PDF::Burst.new("magazine.pdf", :output => "/tmp/")
-      burst.send(:output_file_path, 4).should == "/tmp/page_4.pdf"
+      expect(burst.send(:output_file_path, 4)).to eq("/tmp/page_4.pdf")
     end
 
   end
 
   it "runs the ghostscript burst command for each page" do
     burst = PDF::Burst.new("file.pdf")
-    burst.stub(:page_count) { 5 }
-    burst.should_receive(:system).exactly(5).times
-    burst.should_receive(:burst_command).exactly(5).times
+    allow(burst).to receive(:page_count) { 5 }
+    expect(burst).to receive(:system).exactly(5).times
+    expect(burst).to receive(:burst_command).exactly(5).times
     burst.run!
   end
 
