@@ -28,7 +28,7 @@ module PDF
     private
     
     def page_count_command
-      "pdfinfo '#{@pdf_path}' | grep 'Pages:' | grep -oP '\\d+'"
+      "pdfinfo '#{@pdf_path}' | grep 'Pages:' | grep -o '[0-9].*'"
     end
     
     def burst_command(start_page, end_page, page_number)

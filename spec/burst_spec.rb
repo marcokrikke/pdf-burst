@@ -6,7 +6,7 @@ describe PDF::Burst do
 
     it "generates the command" do
       burst = PDF::Burst.new("my.pdf")
-      expect(burst.send(:page_count_command)).to eq("pdfinfo 'my.pdf' | grep 'Pages:' | grep -oP '\\d+'")
+      expect(burst.send(:page_count_command)).to eq("pdfinfo 'my.pdf' | grep 'Pages:' | grep -o '[0-9].*'")
     end
     
     it "is the correct number" do
