@@ -29,12 +29,6 @@ Another default is the page name. They'll all be nicely named like "page_1.pdf",
 
 Would output them like this: "doc.0001.pdf", "doc.0002.pdf", etc.
 
-If you want thumbnails to be generated for each page, just use the thumbnail option with the thumbnail size.
-
-    PDF::Burst.new("document.pdf", :thumbnail => "128x128").run!
-
-This requires ImageMagick to be installed, as it uses the 'convert' command.
-
 
 ## Special thanks
 
