@@ -35,6 +35,11 @@ Another default is the initial page number. That one starts at 1 by default. We 
 
 Would output them like this: "page_4.pdf", "page_5.pdf", etc.
 
+Another default is the bundle size (number of pages in the output document). That one is 1 by default. We let you change that too:
+
+    PDF::Burst.new("document.pdf", :bundle_size => 2).run!
+
+This could be useful when splitting double-sided documents.
 
 
 ## Special thanks
