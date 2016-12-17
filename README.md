@@ -29,6 +29,13 @@ Another default is the page name. They'll all be nicely named like "page_1.pdf",
 
 Would output them like this: "doc.0001.pdf", "doc.0002.pdf", etc.
 
+Another default is the initial page number. That one starts at 1 by default. We let you change that too:
+
+    PDF::Burst.new("document.pdf", :initial_page_number => 4).run!
+
+Would output them like this: "page_4.pdf", "page_5.pdf", etc.
+
+
 
 ## Special thanks
 

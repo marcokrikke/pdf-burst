@@ -47,9 +47,17 @@ describe PDF::Burst do
 
   it "runs the ghostscript burst command for each page" do
     burst = PDF::Burst.new("file.pdf")
-    allow(burst).to receive(:page_count) { 5 }
+    allow(burst).to receive(:page_count).and_return(5)
     expect(burst).to receive(:system).exactly(5).times
     expect(burst).to receive(:burst_command).exactly(5).times
+    burst.run!
+  end
+
+  it "runs the ghostscript burst command with a page offset" do
+    burst = PDF::Burst.new("file.pdf", :initial_page_number => 4)
+    allow(burst).to receive(:page_count).and_return(1)
+    expect(burst).to receive(:system).exactly(1).times
+    expect(burst).to receive(:burst_command).with(4)
     burst.run!
   end
 

@@ -4,12 +4,12 @@ module PDF
       @pdf_path = pdf_path
       @output_path = options[:output] || "."
       @page_name = options[:filename] || "page_%d"
+      @initial_page_number = options[:initial_page_number] || 1
     end
     
     def run!
       page_count.times do |i|
-        page_number = i + 1
-        system burst_command(page_number)
+        system burst_command(@initial_page_number + i)
       end
     end
     
